@@ -78,8 +78,13 @@ ENV NODE_ENV=production
 # Create extensions directory for plugins
 RUN mkdir -p /home/node/.openclaw/extensions
 
+# Copy mcporter config to user's home for runtime access
+# (mcporter looks for ~/.mcporter/mcporter.json at runtime)
+RUN mkdir -p /home/node/.mcporter && \
+    cp /app/config/mcporter.json /home/node/.mcporter/mcporter.json
+
 # Allow non-root user to write temp files during runtime
-RUN chown -R node:node /app /home/node/.openclaw
+RUN chown -R node:node /app /home/node/.openclaw /home/node/.mcporter
 
 # Copy entrypoint script
 COPY docker/entrypoint.sh /app/docker/entrypoint.sh
