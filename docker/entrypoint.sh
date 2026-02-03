@@ -43,6 +43,51 @@ if [ -f "$PLUGINS_FILE" ]; then
 fi
 
 # ============================================
+# SECURE TELEGRAM CONFIGURATION
+# ============================================
+# If TELEGRAM_BOT_TOKEN is set and no config exists, create a secure initial config.
+# This sets up Telegram with maximum security settings:
+#   - dmPolicy: "allowlist" (only pre-approved users can message)
+#   - groupPolicy: "disabled" (no group access)
+#   - configWrites: false (no remote config changes)
+#
+CONFIG_DIR="${OPENCLAW_STATE_DIR:-/home/node/.openclaw}"
+CONFIG_FILE="$CONFIG_DIR/openclaw.json"
+
+if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ ! -f "$CONFIG_FILE" ]; then
+  echo "[entrypoint] Creating secure Telegram configuration..."
+  mkdir -p "$CONFIG_DIR"
+
+  # Build allowFrom array if TELEGRAM_ALLOWFROM is set
+  if [ -n "$TELEGRAM_ALLOWFROM" ]; then
+    ALLOWFROM_JSON="[\"$TELEGRAM_ALLOWFROM\"]"
+  else
+    ALLOWFROM_JSON="[]"
+  fi
+
+  cat > "$CONFIG_FILE" << EOF
+{
+  "gateway": {
+    "mode": "local"
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "botToken": "\${TELEGRAM_BOT_TOKEN}",
+      "dmPolicy": "allowlist",
+      "allowFrom": $ALLOWFROM_JSON,
+      "groupPolicy": "disabled",
+      "configWrites": false
+    }
+  }
+}
+EOF
+  chmod 600 "$CONFIG_FILE"
+  echo "[entrypoint] Secure Telegram config created at $CONFIG_FILE"
+  echo "[entrypoint] Security settings: dmPolicy=allowlist, groupPolicy=disabled, configWrites=false"
+fi
+
+# ============================================
 # SKILL CONFIGURATION
 # ============================================
 # Disable Homebrew preference for Docker (Linux has apt/pip)

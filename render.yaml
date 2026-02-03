@@ -17,6 +17,11 @@ services:
         value: /data/workspace
       - key: OPENCLAW_GATEWAY_TOKEN
         generateValue: true
+      # Telegram channel (set these in Render dashboard, NOT in this file)
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_ALLOWFROM
+        sync: false
     disk:
       name: openclaw-data
       mountPath: /data
