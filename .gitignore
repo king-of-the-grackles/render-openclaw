@@ -65,6 +65,8 @@ apps/ios/*.mobileprovision
 
 # Local untracked files
 .local/
+config/mcporter.local.json
+.vscode/
 IDENTITY.md
 USER.md
 .tgz

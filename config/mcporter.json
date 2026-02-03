@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "brightdata": {
+      "baseUrl": "https://mcp.brightdata.com/mcp?token=${BRIGHTDATA_API_TOKEN}&unlocker=mcp_web_unlocker&groups=advanced_scraping,ecommerce,finance,app_stores&tools=web_data_linkedin_person_profile,web_data_linkedin_company_profile,web_data_linkedin_job_listings,web_data_linkedin_posts,web_data_linkedin_people_search,web_data_instagram_profiles,web_data_instagram_posts,web_data_instagram_reels,web_data_instagram_comments,web_data_facebook_posts,web_data_facebook_company_reviews,web_data_tiktok_profiles,web_data_tiktok_posts,web_data_tiktok_shop,web_data_tiktok_comments,web_data_x_posts,web_data_youtube_profiles,web_data_youtube_comments,web_data_youtube_videos,web_data_crunchbase_company,web_data_zoominfo_company_profile,web_data_google_maps_reviews"
+    },
+    "prod-reddit-research-mcp": {
+      "baseUrl": "https://reddit-research-mcp.fastmcp.app/mcp",
+      "headers": {
+        "Authorization": "Bearer ${REDDIT_MCP_USER_TOKEN}",
+        "Accept": "application/json, text/event-stream"
+      }
+    },
+    "discourse-mcp": {
+      "baseUrl": "https://server.smithery.ai/king-of-the-grackles/discourse-mcp/sse?config=eyJkaXNjb3Vyc2VVcmwiOiJodHRwczovL2RldmZvcnVtLnJvYmxveC5jb20ifQ%3D%3D",
+      "headers": {
+        "Authorization": "Bearer ${SMITHERY_ACCESS_TOKEN}"
+      }
+    }
+  }
+}
