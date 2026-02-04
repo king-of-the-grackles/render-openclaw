@@ -23,9 +23,39 @@ COPY ui/package.json ./ui/package.json
 COPY patches/ ./patches/
 COPY scripts/ ./scripts/
 
-# Workspace package.json files for pnpm resolution (--parents preserves dirs)
-COPY --parents packages/*/package.json ./
-COPY --parents extensions/*/package.json ./
+# Workspace package.json files for pnpm resolution
+# (COPY --parents requires newer BuildKit; use explicit paths instead)
+COPY packages/clawdbot/package.json ./packages/clawdbot/
+COPY packages/moltbot/package.json ./packages/moltbot/
+COPY extensions/bluebubbles/package.json ./extensions/bluebubbles/
+COPY extensions/copilot-proxy/package.json ./extensions/copilot-proxy/
+COPY extensions/diagnostics-otel/package.json ./extensions/diagnostics-otel/
+COPY extensions/discord/package.json ./extensions/discord/
+COPY extensions/google-antigravity-auth/package.json ./extensions/google-antigravity-auth/
+COPY extensions/google-gemini-cli-auth/package.json ./extensions/google-gemini-cli-auth/
+COPY extensions/googlechat/package.json ./extensions/googlechat/
+COPY extensions/imessage/package.json ./extensions/imessage/
+COPY extensions/line/package.json ./extensions/line/
+COPY extensions/llm-task/package.json ./extensions/llm-task/
+COPY extensions/lobster/package.json ./extensions/lobster/
+COPY extensions/matrix/package.json ./extensions/matrix/
+COPY extensions/mattermost/package.json ./extensions/mattermost/
+COPY extensions/memory-core/package.json ./extensions/memory-core/
+COPY extensions/memory-lancedb/package.json ./extensions/memory-lancedb/
+COPY extensions/minimax-portal-auth/package.json ./extensions/minimax-portal-auth/
+COPY extensions/msteams/package.json ./extensions/msteams/
+COPY extensions/nextcloud-talk/package.json ./extensions/nextcloud-talk/
+COPY extensions/nostr/package.json ./extensions/nostr/
+COPY extensions/open-prose/package.json ./extensions/open-prose/
+COPY extensions/signal/package.json ./extensions/signal/
+COPY extensions/slack/package.json ./extensions/slack/
+COPY extensions/telegram/package.json ./extensions/telegram/
+COPY extensions/tlon/package.json ./extensions/tlon/
+COPY extensions/twitch/package.json ./extensions/twitch/
+COPY extensions/voice-call/package.json ./extensions/voice-call/
+COPY extensions/whatsapp/package.json ./extensions/whatsapp/
+COPY extensions/zalo/package.json ./extensions/zalo/
+COPY extensions/zalouser/package.json ./extensions/zalouser/
 
 # Install all dependencies (dev + prod both needed for build stage)
 RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
