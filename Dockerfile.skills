@@ -176,4 +176,6 @@ USER node
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
 
 # Start gateway server with default config
-CMD ["node", "dist/index.js", "gateway", "--allow-unconfigured"]
+# --bind lan: required for Render health checks (and Tailscale Serve connects via localhost)
+# --port 8080: Render expects this port
+CMD ["node", "dist/index.js", "gateway", "--allow-unconfigured", "--bind", "lan", "--port", "8080"]

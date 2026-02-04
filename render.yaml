@@ -5,7 +5,6 @@ services:
     plan: standard
     healthCheckPath: /health
     dockerfilePath: ./Dockerfile.skills
-    dockerCommand: node dist/index.js gateway --allow-unconfigured --bind lan --port 8080
     envVars:
       - key: PORT
         value: "8080"
