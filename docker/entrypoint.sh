@@ -208,8 +208,12 @@ if [ -n "$TS_AUTHKEY" ]; then
   # the gateway uses --bind lan for Render health checks, but OpenClaw's
   # built-in Tailscale Serve management requires --bind loopback.
   GATEWAY_PORT="${PORT:-8080}"
-  tailscale serve --bg --https=443 "http://localhost:${GATEWAY_PORT}"
-  echo "[entrypoint] Tailscale Serve: https://${TS_HOSTNAME:-openclaw-render}.<tailnet>.ts.net → localhost:${GATEWAY_PORT}"
+  if tailscale serve --bg --https=443 "http://localhost:${GATEWAY_PORT}"; then
+    echo "[entrypoint] Tailscale Serve: https://${TS_HOSTNAME:-openclaw-render}.<tailnet>.ts.net → localhost:${GATEWAY_PORT}"
+  else
+    echo "[entrypoint] Warning: tailscale serve failed (Serve may not be enabled on your tailnet)"
+    echo "[entrypoint] The gateway will still start — enable Serve at https://login.tailscale.com/admin/machines"
+  fi
 fi
 
 # ============================================
