@@ -58,8 +58,9 @@ COPY extensions/zalo/package.json ./extensions/zalo/
 COPY extensions/zalouser/package.json ./extensions/zalouser/
 
 # Install all dependencies (dev + prod both needed for build stage)
+# --ignore-scripts: postinstall scripts reference local files not present in deps stage
 RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
-    pnpm install --frozen-lockfile
+    pnpm install --frozen-lockfile --ignore-scripts
 
 # ============================================
 # Stage 2: BUILDER (runs when source changes)
