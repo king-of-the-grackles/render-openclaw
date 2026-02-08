@@ -217,6 +217,24 @@ if [ -n "$TS_AUTHKEY" ]; then
 fi
 
 # ============================================
+# MCPORTER CONFIG: expand env vars in baseUrl
+# ============================================
+# mcporter only interpolates ${VAR} in headers, not in baseUrl fields.
+# Expand any ${VAR} placeholders in the runtime mcporter config so that
+# tokens embedded in URLs (e.g. Brightdata) resolve correctly.
+#
+MCPORTER_CFG="/home/node/.mcporter/mcporter.json"
+if [ -f "$MCPORTER_CFG" ]; then
+    node -e "
+const fs = require('fs');
+const cfg = fs.readFileSync('$MCPORTER_CFG', 'utf8');
+const expanded = cfg.replace(/\\\$\{([^}]+)\}/g, (_, name) => process.env[name] || '');
+fs.writeFileSync('$MCPORTER_CFG', expanded);
+" && echo "[entrypoint] Expanded env vars in mcporter config" \
+  || echo "[entrypoint] Warning: Failed to expand mcporter config vars"
+fi
+
+# ============================================
 # EXECUTE MAIN COMMAND
 # ============================================
 exec "$@"

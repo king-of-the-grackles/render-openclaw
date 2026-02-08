@@ -21,6 +21,11 @@ services:
         sync: false
       - key: TELEGRAM_ALLOWFROM
         sync: false
+      # MCP server API keys (set these in Render dashboard, NOT in this file)
+      - key: FIRECRAWL_API_KEY
+        sync: false
+      - key: POSTHOG_API_KEY
+        sync: false
     disk:
       name: openclaw-data
       mountPath: /data
