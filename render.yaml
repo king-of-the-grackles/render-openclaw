@@ -34,6 +34,18 @@ services:
       # Claude Max setup-token (set in Render dashboard, NOT in this file)
       - key: CLAUDE_SETUP_TOKEN
         sync: false
+      # Descope OAuth for MCP servers (set in Render dashboard, NOT in this file)
+      - key: DESCOPE_CLIENT_ID
+        sync: false
+      - key: DESCOPE_CLIENT_SECRET
+        sync: false
+      - key: DESCOPE_TOKEN_URL
+        sync: false
+      # Tailscale (set in Render dashboard, NOT in this file)
+      - key: TS_AUTHKEY
+        sync: false
+      - key: TS_HOSTNAME
+        sync: false
     disk:
       name: openclaw-data
       mountPath: /data
