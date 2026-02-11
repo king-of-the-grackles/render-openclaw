@@ -140,16 +140,18 @@ export SKILLS_INSTALL_PREFER_BREW="${SKILLS_INSTALL_PREFER_BREW:-false}"
 # CLAUDE SETUP-TOKEN AUTH
 # ============================================
 # If CLAUDE_SETUP_TOKEN is set, apply it as the Anthropic auth credential.
-# This enables Claude Max/Pro subscription auth without exposing the token
-# in CLI history. The token is stored in OpenClaw's auth profiles on the
-# persistent disk. Re-applied on each boot to pick up rotated tokens.
+# Uses --auth-choice token with --token-provider anthropic (the non-interactive
+# equivalent of --auth-choice setup-token, which requires interactive mode).
+# The token is stored in OpenClaw's auth profiles on the persistent disk.
+# Re-applied on each boot to pick up rotated tokens.
 #
 if [ -n "$CLAUDE_SETUP_TOKEN" ]; then
   echo "[entrypoint] Applying Claude setup-token..."
   node /app/dist/index.js onboard \
     --non-interactive \
     --accept-risk \
-    --auth-choice setup-token \
+    --auth-choice token \
+    --token-provider anthropic \
     --token "$CLAUDE_SETUP_TOKEN" \
     --skip-channels \
     --skip-skills \
