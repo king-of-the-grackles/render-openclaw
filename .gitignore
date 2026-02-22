@@ -103,3 +103,9 @@ package-lock.json
 
 # Local iOS signing overrides
 apps/ios/LocalSigning.xcconfig
+
+# Personal config files with credentials/PII
+openclaw-config.json
+openclaw-config.json.pre-hardening.bak
+SECURITY_ENV_SETUP.md
+digest/
